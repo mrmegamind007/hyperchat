@@ -16,8 +16,12 @@ def manifest():
 def service_worker():
     return send_from_directory('.', 'sw.js')
 
-@app.route('/icon.jpeg')
-def icon():
+@app.route('/icon-192.png')
+def icon192():
+    return send_from_directory('.', 'icon.jpeg')
+
+@app.route('/icon-512.png')
+def icon512():
     return send_from_directory('.', 'icon.jpeg')
     
 app.secret_key = "hyperchat_final_verified_2026"
