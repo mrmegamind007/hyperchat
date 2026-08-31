@@ -7,7 +7,6 @@ import requests
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-from flask import send_from_directory
 
 @app.route('/manifest.json')
 def manifest():
