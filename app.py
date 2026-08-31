@@ -7,6 +7,15 @@ import requests
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+from flask import send_from_directory
+
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory('.', 'manifest.json')
+
+@app.route('/sw.js')
+def service_worker():
+    return send_from_directory('.', 'sw.js')
 app.secret_key = "hyperchat_final_verified_2026"
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -42,7 +51,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS notifications (id INTEGER PRIMARY KEY, u
 c.execute('''CREATE TABLE IF NOT EXISTS marketplace (id INTEGER PRIMARY KEY, user_id INTEGER, title TEXT, price REAL, description TEXT, category TEXT, image TEXT, time TEXT)''')
 conn.commit()
 
-BASE = '''<!doctype html><html><head><title>HyperChat</title><meta name="viewport" content="width=device-width, initial-scale=1">
+BASE = '''<!doctype html><html><head><link rel="manifest" href="/manifest.json"><title>HyperChat</title><meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -103,7 +112,7 @@ a.link{color:var(--accent);text-decoration:none;font-weight:bold}
 <div class="container">{{content|safe}}</div>
 <div id="storyModal" class="modal" onclick="this.classList.remove('active')"><div style="text-align:center"><img id="modalImg"><p id="modalUser" style="color:white"></p><p id="modalCap" style="color:white;opacity:0.8"></p></div></div>
 <script>function openStory(img,u,c){document.getElementById('modalImg').src=img;document.getElementById('modalUser').innerText=u;document.getElementById('modalCap').innerText=c;document.getElementById('storyModal').classList.add('active');}</script>
-</body></html>'''
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script></body></html>'''
 
 
 def hash_pw(p): return hashlib.sha256(p.encode()).hexdigest()
