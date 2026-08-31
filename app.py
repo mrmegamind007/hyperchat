@@ -22,7 +22,7 @@ def icon192():
 
 @app.route('/icon-512.png')
 def icon512():
-    return send_from_directory('.', 'icon-512')
+    return send_from_directory('.', 'icon-512.png')
     
 app.secret_key = "hyperchat_final_verified_2026"
 UPLOAD_FOLDER = 'static/uploads'
