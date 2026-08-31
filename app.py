@@ -18,15 +18,11 @@ def service_worker():
 
 @app.route('/icon-192.png')
 def icon192():
-    return send_from_directory('.', 'icon.jpeg')
+    return send_from_directory('.', 'icon-192.png')
 
 @app.route('/icon-512.png')
 def icon512():
-    return send_from_directory('.', 'icon.jpeg')
-
-@app.route('/icon.png')
-def icon():
-    return send_from_directory('.', 'icon.jpeg'
+    return send_from_directory('.', 'icon-512')
     
 app.secret_key = "hyperchat_final_verified_2026"
 UPLOAD_FOLDER = 'static/uploads'
